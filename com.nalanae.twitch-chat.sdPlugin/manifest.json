@@ -1,0 +1,38 @@
+{
+  "Actions": [
+    {
+      "Icon": "plugin/images/actions/message",
+      "Name": "Send Message",
+      "States": [
+        {
+          "Image": "plugin/images/icons/message"
+        }
+      ],
+      "Tooltip": "Send a message in specific Twitch chat channel",
+      "UUID": "com.nalanae.twitch-chat.message"
+    }
+  ],
+  "SDKVersion": 2,
+  "Author": "Nalanae",
+  "CodePath": "plugin/index.html",
+  "Description": "Extra actions for Twitch chat.",
+  "Name": "Twitch Chat",
+  "Icon": "plugin/images/icons/plugin",
+  "Category": "Twitch Chat",
+  "CategoryIcon": "plugin/images/actions/category",
+  "PropertyInspectorPath": "pi/index.html",
+  "Version": "1.0",
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "4.2"
+  }
+}

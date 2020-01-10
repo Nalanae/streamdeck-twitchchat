@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>com.nalanae.twitch-chat.pi</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/sdpi.css" />
+    <script src="../utils/js/utils.js"></script>
+    <script src="js/pi.js"></script>
+    <script src="js/messagePI.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/setup.js"></script>
+</head>
+<body>
+    <div class="sdpi-wrapper" id="pi">
+        <div class="sdpi-item">
+            <div class="sdpi-item-label" id="channel-label">Authorization</div>
+            <button type="button" class="sdpi-item-value" id="reauthorize-button">Reauthorize</button>
+        </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label" id="channel-label">Channel</div>
+            <input class="sdpi-item-value sdProperty" placeholder="Channel" value="" id="channel-input" />
+        </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label" id="message-label">Message</div>
+            <input class="sdpi-item-value sdProperty" placeholder="Message" value="" id="message-input" />
+        </div>
+    </div>
+</body>
+</html>
