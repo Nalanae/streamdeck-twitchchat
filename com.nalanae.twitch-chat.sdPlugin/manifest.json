@@ -10,6 +10,17 @@
       ],
       "Tooltip": "Send a message in specific Twitch chat channel",
       "UUID": "com.nalanae.twitch-chat.message"
+    },
+    {
+      "Icon": "plugin/images/actions/message",
+      "Name": "Subscriber Thank You",
+      "States": [
+        {
+          "Image": "plugin/images/icons/message"
+        }
+      ],
+      "Tooltip": "Send a message in specific Twitch chat channel containing the latest subscriber's name.",
+      "UUID": "com.nalanae.twitch-chat.sub-thanks"
     }
   ],
   "SDKVersion": 2,
@@ -21,7 +32,7 @@
   "Category": "Twitch Chat",
   "CategoryIcon": "plugin/images/actions/category",
   "PropertyInspectorPath": "pi/index.html",
-  "Version": "1.0",
+  "Version": "1.1",
   "OS": [
     {
       "Platform": "mac",

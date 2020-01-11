@@ -1602,3 +1602,7 @@ input[type="range"].colortemperature::-webkit-slider-thumb {
         opacity: 1;
         transition: opacity 0.25s ease-out;
     }
+
+.small-font {
+    font-size: 1em;
+}

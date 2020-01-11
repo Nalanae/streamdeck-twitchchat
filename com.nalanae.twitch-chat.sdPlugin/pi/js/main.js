@@ -43,6 +43,9 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
     if (action == "com.nalanae.twitch-chat.message") {
         const pi = new MessagePI(inUUID, StreamDeckVersion, pluginVersion);
     }
+    else if (action == "com.nalanae.twitch-chat.sub-thanks") {
+        const pi = new SubThanksPI(inUUID, StreamDeckVersion, pluginVersion);
+    }
 
     websocket.onmessage = function (evt) {
         // Received message from StreamDeck

@@ -4,7 +4,7 @@ function PI(inContext, inStreamDeckVersion, inPluginVersion) {
 
     // Add event listeners
     document.getElementById("reauthorize-button").addEventListener("click", reauthorize);
-    document.getElementById("channel-input").addEventListener("input", channelChanged);
+    document.getElementById("channel-input").addEventListener("change", channelChanged);
 
     setDefaults();
 

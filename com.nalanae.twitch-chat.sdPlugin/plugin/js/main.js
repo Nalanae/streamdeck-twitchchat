@@ -55,6 +55,9 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
 				if (action == "com.nalanae.twitch-chat.message") {
 					actions[context] = new MessageAction(context, settings);
 				}
+				if (action == "com.nalanae.twitch-chat.sub-thanks") {
+					actions[context] = new SubThanksAction(context, settings);
+				}
 			}
 		}
 		else if (event == "willDisappear") {
@@ -62,22 +65,14 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
 			if (context in actions) {
 				delete actions[context];
 			}
+
+			reconnectToTwitch();
 		}
 		else if (event == "didReceiveGlobalSettings") {
 			// Set global settings
 			globalSettings = jsonPayload['settings'];
 
-			if (twitchClient) {
-				twitchClient.disconnect();
-			}
-
-			twitchClient = new window.tmi.Client({
-				options: { clientId: "ej0fycl6b431flwkp3bkqyx4nl6xms" },
-				connection: { secure: true, reconnect: true },
-				identity: { username: globalSettings['twitch-login'], password: "oauth:" + globalSettings['twitch-token'] }
-			})
-
-			twitchClient.connect();
+			reconnectToTwitch();
 		}
 		else if (event == "didReceiveSettings") {
 			var settings = jsonPayload['settings'];
@@ -86,6 +81,58 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
 			if (context in actions) {
 				actions[context].setSettings(settings);
 			}
+
+			reconnectToTwitch();
 		}
+	}
+
+	function reconnectToTwitch() {
+		try {
+			if (twitchClient) {
+				twitchClient.disconnect();
+			}
+
+			var actionInstances = Object.values(actions);
+
+			var channels = new Set(actionInstances.map(function (i) { return "#" + i.getSettings()['channel'] }));
+
+			twitchClient = new window.tmi.Client({
+				options: { clientId: "ej0fycl6b431flwkp3bkqyx4nl6xms" },
+				connection: { secure: true, reconnect: true },
+				identity: { username: globalSettings['twitch-login'], password: "oauth:" + globalSettings['twitch-token'] },
+				channels: [...channels]
+			});
+
+			twitchClient.connect();
+
+			twitchClient.on("subscription", function (channel, username, methods, message, userstate) {
+				actionInstances.forEach(function (i) {
+					if (channel == "#" + i.getSettings()['channel']) {
+						i.newSub(username, methods, message, userstate);
+					}
+				});
+			});
+			twitchClient.on("resub", function (channel, username, months, message, userstate, methods) {
+				actionInstances.forEach(function (i) {
+					if (channel == "#" + i.getSettings()['channel']) {
+						i.resub(username, months, message, userstate, methods);
+					}
+				});
+			});
+			twitchClient.on("subgift", function (channel, username, months, receipient, methods, userstate) {
+				actionInstances.forEach(function (i) {
+					if (channel == "#" + i.getSettings()['channel']) {
+						i.giftSub(username, months, receipient, methods, userstate);
+					}
+				});
+			});
+			twitchClient.on("submysterygift", function (channel, username, numOfSubs, methods, userstate) {
+				actionInstances.forEach(function (i) {
+					if (channel == "#" + i.getSettings()['channel']) {
+						i.randomGiftSub(username, numOfSubs, methods, userstate);
+					}
+				});
+			});
+		} catch { }
 	}
 }
