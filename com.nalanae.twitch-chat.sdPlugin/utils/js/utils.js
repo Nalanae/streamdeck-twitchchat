@@ -76,11 +76,22 @@ function log(inMessage) {
 }
 
 // Show alert icon on the key
-function showAlert(inUUID) {
+function showAlert(inContext) {
     if (websocket) {
         const json = {
             "event": "showAlert",
-            "context": inUUID
+            "context": inContext
+        };
+        websocket.send(JSON.stringify(json));
+    }
+}
+
+// Show OK icon on the key
+function showOk(inContext) {
+    if (websocket) {
+        const json = {
+            "event": "showOk",
+            "context": inContext
         };
         websocket.send(JSON.stringify(json));
     }

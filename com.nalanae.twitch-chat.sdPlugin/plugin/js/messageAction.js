@@ -8,5 +8,6 @@ function MessageAction(inContext, inSettings) {
     // Public function called on key up event
     this.onKeyUp = function (inContext, inSettings, inCoordinates, inUserDesiredState, inState) {
         twitchClient.say(inSettings['channel'], inSettings['message']);
+        showOk(inContext);
     }
 }
